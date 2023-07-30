@@ -33,7 +33,13 @@
 
 .card__like-button {
   background: transparent url(../images/like_button.svg) center no-repeat;
+  border: none;
   width: 21px;
   height: 18px;
-  border: none;
+  margin-left: auto;
+  padding: 10px 10px 8px 11px;
+}
+
+.card__like-button:hover {
+  cursor: pointer;
 }

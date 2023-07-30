@@ -58,7 +58,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 373px;
+  max-width: 100%;
   grid-area: title;
   margin: 0;
 }
@@ -89,7 +89,8 @@
   }
 
   .profile__image {
-    margin: 0;
+    margin-right: 0;
+    margin-bottom: 30px;
   }
   .profile__info {
     display: flex;

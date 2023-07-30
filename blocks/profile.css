@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   padding-top: calc(159px - 119px);
-  padding-bottom: calc(159px - 119px);
+  padding-bottom: 51px;
 }
 
 .profile__image {
@@ -14,7 +14,6 @@
 
 .profile__info {
   width: 415px;
-  height: 77px;
   display: grid;
   align-items: center;
   grid-template-areas:
@@ -29,16 +28,26 @@
   height: 24px;
   border: 1px solid white;
   padding: 0;
+  margin-left: 18px;
+}
+
+.profile__edit-button:hover {
+  cursor: pointer;
 }
 
 .profile__plus-button {
   background: transparent url(../images/plus-symbol.svg) center no-repeat;
   width: 150px;
   height: 50px;
-  border: 1px solid white;
+  border: 2px solid white;
+  border-radius: 2px;
   margin-left: auto;
   transition: width linear 0.2s;
   padding: 0;
+}
+
+.profile__plus-button:hover {
+  cursor: pointer;
 }
 
 .profile__title {
@@ -49,7 +58,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 100%;
+  max-width: 373px;
   grid-area: title;
   margin: 0;
 }
@@ -62,24 +71,21 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 373px;
+  max-width: 100%;
   grid-area: description;
   margin: 0;
+  padding-top: 7px;
 }
 @media screen and (max-width: 920px) {
-  .profile__title {
-    font-size: 30px;
-  }
-
   .profile__plus-button {
     width: 50px;
-    height: 50px;
-    transition: width linear 0.2s;
   }
 }
 @media screen and (max-width: 720px) {
   .profile {
     flex-direction: column;
+    padding-top: 42px;
+    padding-bottom: calc(36px - 15px);
   }
 
   .profile__image {
@@ -90,6 +96,8 @@
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
+    max-width: 282px;
+    margin-bottom: 36px;
   }
   .profile__edit-button {
     width: 18px;
@@ -103,8 +111,10 @@
 
   .profile__title {
     font-size: 22px;
+    margin-right: 10px;
   }
   .profile__description {
+    font-size: 14px;
     width: 100%;
   }
 }

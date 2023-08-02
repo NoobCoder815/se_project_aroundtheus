@@ -1,0 +1,52 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  /* display: none; */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.modal_opened {
+  display: flex;
+}
+
+.modal__container {
+  margin: auto;
+  position: relative;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  width: 430px;
+  height: 330px;
+}
+
+.modal__close-button {
+  background: transparent url(../images/close-symbol.svg) no-repeat;
+  width: 40px;
+  height: 40px;
+  border: none;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: calc(100% + 10px);
+  cursor: pointer;
+}
+
+@media screen and (max-width: 620px) {
+  .modal {
+    padding: 19px;
+  }
+  .modal__container {
+    width: 282px;
+    height: 322px;
+    margin-top: 123px;
+  }
+
+  .modal__close-button {
+    bottom: calc(100% + 14px);
+    left: 90%;
+  }
+}

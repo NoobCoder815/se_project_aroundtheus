@@ -28,7 +28,11 @@
           />
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
-            <button class="profile__edit-button" type="button"></button>
+            <button
+              class="profile__edit-button"
+              id="profile-edit-button"
+              type="button"
+            ></button>
             <p class="profile__description">Explorer</p>
           </div>
           <button class="profile__plus-button" type="button"></button>
@@ -104,13 +108,17 @@
           </ul>
         </section>
       </main>
-      <!-- <footer class="footer page__section">
+      <footer class="footer page__section">
         <p class="footer__copyright">&copy; 2022 Around The U.S.</p>
-      </footer> -->
+      </footer>
     </div>
-    <div class="modal">
+    <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
-        <button class="modal__close-button" type="button"></button>
+        <button
+          class="modal__close-button"
+          id="modal-close-button"
+          type="button"
+        ></button>
         <p class="modal__label">Edit Profile</p>
         <form class="modal__form">
           <input
@@ -127,7 +135,6 @@
             name="card__description"
             placeholder="Description"
           />
-
           <button class="modal__save-button">Save</button>
         </form>
       </div>

@@ -41,6 +41,7 @@
   background-color: black;
   color: white;
   padding: 0;
+  /* margin-top: calc(48px - 30px); */
   width: 358px;
   height: 50.15px;
   cursor: pointer;
@@ -57,8 +58,8 @@
   height: 40px;
   border: none;
   position: absolute;
-  bottom: calc(100% + 10px);
-  left: calc(100% + 10px);
+  bottom: calc(100% - 5px);
+  left: 100%;
   cursor: pointer;
 }
 
@@ -87,7 +88,7 @@
   }
 
   .modal__close-button {
-    bottom: calc(100% + 14px);
-    left: 90%;
+    bottom: calc(100% + 20px);
+    left: calc(100% - 40px);
   }
 }

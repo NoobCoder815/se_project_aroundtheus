@@ -53,7 +53,7 @@
 }
 
 .modal__close-button {
-  background: transparent url(../images/close-symbol.svg) no-repeat;
+  background: transparent url(../images/close-symbol.svg) no-repeat center;
   width: 40px;
   height: 40px;
   border: none;
@@ -88,6 +88,9 @@
   }
 
   .modal__close-button {
+    width: 26px;
+    height: 26px;
+    padding: 0;
     bottom: calc(100% + 20px);
     left: calc(100% - 40px);
   }

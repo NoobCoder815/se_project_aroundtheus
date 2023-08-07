@@ -35,11 +35,15 @@ const profileJob = document.querySelector(".profile__description");
 const profileTemplate = document.querySelector("#gallery-template").content;
 const profileGallery = document.querySelector(".gallery__cards");
 
+function closeModal() {
+  modal.classList.remove("modal_opened");
+}
+
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileJob.textContent = inputJob.value;
-  modal.classList.remove("modal_opened");
+  closeModal();
 }
 
 function getCardElement(data) {
@@ -47,7 +51,7 @@ function getCardElement(data) {
   const cardTitle = cardElement.querySelector(".card__title");
   const cardImage = cardElement.querySelector(".card__image");
   cardTitle.textContent = data.name;
-  cardTitle.alt = data.name;
+  cardImage.alt = data.name;
   cardImage.src = data.link;
   return cardElement;
 }
@@ -65,7 +69,7 @@ profileEditBtn.addEventListener("click", function () {
 });
 
 profileCloseBtn.addEventListener("click", () => {
-  modal.classList.remove("modal_opened");
+  closeModal();
 });
 
 profileEditForm.addEventListener("submit", handleProfileFormSubmit);

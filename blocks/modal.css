@@ -16,7 +16,6 @@
   display: flex;
   visibility: visible;
   opacity: 1;
-  transition-delay: 0.2s;
 }
 
 .modal__container {

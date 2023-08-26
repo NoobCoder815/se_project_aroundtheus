@@ -1,0 +1,40 @@
+.modal__image-container {
+  margin: auto;
+  position: relative;
+}
+
+.preview-image {
+  max-width: 75vw;
+  height: 75vh;
+}
+
+.image-description {
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.modal__close-button_image {
+  background: transparent url(../images/close-symbol.svg) no-repeat center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 100%;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 620px) {
+  .preview-image {
+    height: 52vh;
+  }
+
+  .modal__close-button_image {
+    width: 30px;
+    height: 30px;
+    left: calc(100% + 2px);
+  }
+}

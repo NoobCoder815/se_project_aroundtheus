@@ -50,7 +50,7 @@
       <div class="modal__container">
         <button class="modal__close-button" type="button"></button>
         <p class="modal__label">Edit Profile</p>
-        <form class="modal__form">
+        <form class="modal__form" name="edit-form">
           <input
             type="text"
             class="modal__input modal__input_type_name"
@@ -60,7 +60,7 @@
           />
           <input
             type="text"
-            class="modal__input modal__input_type_description"
+            class="modal__input modal__input_type_bio"
             name="card__description"
             placeholder="Description"
             required
@@ -70,11 +70,11 @@
       </div>
     </div>
 
-    <div class="modal" id="card-add-modal">
+    <div class="modal" id="new-card-modal">
       <div class="modal__container">
         <button class="modal__close-button" type="button"></button>
         <p class="modal__label">New place</p>
-        <form class="modal__form">
+        <form class="modal__form" name="new-card-form">
           <input
             type="text"
             class="modal__input modal__input_type_title"

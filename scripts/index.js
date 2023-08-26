@@ -26,32 +26,28 @@ const initialCards = [
 ];
 
 const profileTemplate = document.querySelector("#gallery-template").content;
-
 const profileGallery = document.querySelector(".gallery__cards");
+
 const editModal = document.querySelector("#edit-modal");
-const newCardModal = document.querySelector("#card-add-modal");
+const newCardModal = document.querySelector("#new-card-modal");
 const previewImageModal = document.querySelector("#preview-image-modal");
-const profileEditForm = editModal.querySelector(".modal__form");
-const profileNewCardForm = newCardModal.querySelector(".modal__form");
+
+const profileEditForm = document.forms["edit-form"];
+const newCardForm = document.forms["new-card-form"];
 
 const profileEditBtn = document.querySelector("#profile-edit-button");
-const profileNewCardBtn = document.querySelector(".profile__plus-button");
-const profileEditCloseBtn = editModal.querySelector(".modal__close-button");
-const profileNewCardCloseBtn = newCardModal.querySelector(
-  ".modal__close-button"
-);
-const previewImageCloseBtn = previewImageModal.querySelector(
-  ".modal__close-button_image"
-);
+const newCardBtn = document.querySelector(".profile__plus-button");
+const closeButtons = document.querySelectorAll(".modal__close-button");
 
 const inputName = profileEditForm.querySelector(".modal__input_type_name");
-const inputJob = profileEditForm.querySelector(
-  ".modal__input_type_description"
-);
-const inputTitle = profileNewCardForm.querySelector(".modal__input_type_title");
-const inputLink = profileNewCardForm.querySelector(".modal__input_type_link");
+const inputJob = profileEditForm.querySelector(".modal__input_type_bio");
+const inputTitle = newCardForm.querySelector(".modal__input_type_title");
+const inputLink = newCardForm.querySelector(".modal__input_type_link");
+
 const profileName = document.querySelector(".profile__title");
 const profileJob = document.querySelector(".profile__description");
+const previewImage = previewImageModal.querySelector(".preview-image");
+const previewImageText = previewImageModal.querySelector(".image-description");
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
@@ -78,13 +74,9 @@ function getCardElement(cardData) {
   cardImage.src = cardData.link;
 
   cardImage.addEventListener("click", () => {
-    const previewImage = previewImageModal.querySelector(".preview-image");
-    const previewImageDescription =
-      previewImageModal.querySelector(".image-description");
-
     previewImage.src = cardImage.src;
     previewImage.alt = cardImage.alt;
-    previewImageDescription.textContent = cardTitle.textContent;
+    previewImageText.textContent = cardTitle.textContent;
     openModal(previewImageModal);
   });
 
@@ -93,9 +85,6 @@ function getCardElement(cardData) {
   });
   deleteButton.addEventListener("click", () => {
     cardContainer.remove();
-  });
-  previewImageCloseBtn.addEventListener("click", () => {
-    closeModal(previewImageModal);
   });
 
   return cardElement;
@@ -112,26 +101,26 @@ function handleNewCardFormSubmit(evt) {
   const name = inputTitle.value;
   const link = inputLink.value;
   renderCards({ name, link }, profileGallery);
+  evt.target.reset();
   closeModal(newCardModal);
 }
 
 profileEditForm.addEventListener("submit", handleEditFormSubmit);
-profileNewCardForm.addEventListener("submit", handleNewCardFormSubmit);
+newCardForm.addEventListener("submit", handleNewCardFormSubmit);
 
 profileEditBtn.addEventListener("click", () => {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
   openModal(editModal);
 });
-profileEditCloseBtn.addEventListener("click", () => {
-  closeModal(editModal);
-});
-
-profileNewCardBtn.addEventListener("click", () => {
+newCardBtn.addEventListener("click", () => {
   openModal(newCardModal);
 });
-profileNewCardCloseBtn.addEventListener("click", () => {
-  closeModal(newCardModal);
+closeButtons.forEach((button) => {
+  const modal = button.closest(".modal");
+  button.addEventListener("click", () => {
+    closeModal(modal);
+  });
 });
 
 initialCards.forEach((cardData) => renderCards(cardData, profileGallery));

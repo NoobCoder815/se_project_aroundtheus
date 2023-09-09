@@ -71,3 +71,5 @@ const enableValidation = (options) => {
     setEventListeners(formElement);
   });
 };
+
+enableValidation(config);

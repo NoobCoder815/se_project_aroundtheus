@@ -56,11 +56,6 @@ function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
 
-function renderCards(cardData, gallery) {
-  const cardElement = getCardElement(cardData);
-  gallery.prepend(cardElement);
-}
-
 function getCardElement(cardData) {
   const cardElement = profileTemplate.cloneNode(true);
   const cardContainer = cardElement.querySelector(".card");
@@ -88,6 +83,11 @@ function getCardElement(cardData) {
   });
 
   return cardElement;
+}
+
+function renderCards(cardData, gallery) {
+  const cardElement = getCardElement(cardData);
+  gallery.prepend(cardElement);
 }
 
 function handleEditFormSubmit(evt) {
@@ -120,6 +120,26 @@ closeButtons.forEach((button) => {
   const modal = button.closest(".modal");
   button.addEventListener("click", () => {
     closeModal(modal);
+  });
+});
+
+const modal = Array.from(document.querySelectorAll(".modal"));
+modal.forEach((container) => {
+  container.addEventListener("click", (evt) => {
+    if (
+      !evt.target.classList.contains("modal__container") &&
+      !evt.target.classList.contains("modal__label") &&
+      !evt.target.classList.contains("modal__form") &&
+      !evt.target.classList.contains("modal__input") &&
+      !evt.target.classList.contains("preview-image")
+    ) {
+      closeModal(container);
+    }
+  });
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closeModal(container);
+    }
   });
 });
 

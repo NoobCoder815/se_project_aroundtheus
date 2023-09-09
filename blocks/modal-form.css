@@ -28,7 +28,29 @@
   text-align: left;
   width: 358px;
   padding-bottom: 13px;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
+}
+
+.modal__input::placeholder {
+  color: #bbb;
+}
+
+.modal__input_type_error {
+  border-bottom-color: red;
+}
+
+.modal__input-error {
+  padding: 0;
+  margin-bottom: 25px;
+}
+
+.modal__input-error_active {
+  margin-bottom: calc(25px - 12px);
+  margin-right: auto;
+  margin-left: 35px;
+  color: #f00;
+  font-family: Inter;
+  font-size: 12px;
 }
 
 .modal__save-button {
@@ -41,7 +63,6 @@
   background-color: black;
   color: white;
   padding: 0;
-  /* margin-top: calc(48px - 30px); */
   width: 358px;
   height: 50.15px;
   cursor: pointer;
@@ -50,6 +71,17 @@
 .modal__save-button:hover {
   cursor: pointer;
   opacity: 0.8;
+}
+
+.modal__save-button_inactive {
+  background-color: white;
+  color: #bbb;
+  border: solid 1px #bbb;
+}
+
+.modal__save-button_inactive:hover {
+  cursor: default;
+  opacity: 1;
 }
 
 .modal__close-button {
@@ -81,6 +113,11 @@
     font-size: 14px;
     width: 238px;
   }
+
+  .modal__input-error_active {
+    margin-left: 20px;
+  }
+
   .modal__save-button {
     width: 238px;
     height: 46px;

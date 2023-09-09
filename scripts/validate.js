@@ -47,10 +47,12 @@ const toggleButtonState = (inputList, buttonElement) => {
   }
 };
 
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
+// Changed before work
+const setEventListeners = (formElement, options) => {
+  const { inputSelector } = options;
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(".modal__save-button");
-
+  // Ends here
   toggleButtonState(inputList, buttonElement);
 
   inputList.forEach((inputElement) => {

@@ -92,6 +92,13 @@ function renderCards(cardData, gallery) {
   gallery.prepend(cardElement);
 }
 
+profileEditBtn.addEventListener("click", () => {
+  inputName.value = profileName.textContent;
+  inputJob.value = profileJob.textContent;
+  openModal(editModal);
+});
+newCardBtn.addEventListener("click", () => openModal(newCardModal));
+
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
@@ -110,30 +117,21 @@ function handleNewCardFormSubmit(evt) {
 profileEditForm.addEventListener("submit", handleEditFormSubmit);
 newCardForm.addEventListener("submit", handleNewCardFormSubmit);
 
-profileEditBtn.addEventListener("click", () => {
-  inputName.value = profileName.textContent;
-  inputJob.value = profileJob.textContent;
-  openModal(editModal);
-});
-newCardBtn.addEventListener("click", () => {
-  openModal(newCardModal);
-});
-
 const modalList = [...document.querySelectorAll(".modal")];
-modalList.forEach((container) => {
-  container.addEventListener("mousedown", (evt) => {
+modalList.forEach((modal) => {
+  modal.addEventListener("mousedown", (evt) => {
     if (evt.target.classList.contains("modal")) {
-      closeModal(container);
+      closeModal(modal);
     }
     if (evt.target.classList.contains("modal__close-button")) {
-      closeModal(container);
+      closeModal(modal);
     }
   });
 });
 
 function closeByEscape(evt) {
-  const modalOpened = document.querySelector(".modal_opened");
   if (evt.key === "Escape") {
+    const modalOpened = document.querySelector(".modal_opened");
     closeModal(modalOpened);
   }
 }

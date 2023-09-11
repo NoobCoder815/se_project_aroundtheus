@@ -119,7 +119,7 @@ newCardBtn.addEventListener("click", () => {
   openModal(newCardModal);
 });
 
-const modalList = Array.from(document.querySelectorAll(".modal"));
+const modalList = [...document.querySelectorAll(".modal")];
 modalList.forEach((container) => {
   container.addEventListener("mousedown", (evt) => {
     if (evt.target.classList.contains("modal")) {

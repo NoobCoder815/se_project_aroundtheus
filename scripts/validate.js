@@ -59,11 +59,9 @@ const toggleButtonState = (
   }
 };
 
-// Changed before work
 const setEventListeners = (formElement, options) => {
-  const { inputSelector } = options;
-  const inputList = [...formElement.querySelectorAll(inputSelector)];
-  const buttonElement = formElement.querySelector(".modal__save-button");
+  const inputList = [...formElement.querySelectorAll(options.inputSelector)];
+  const buttonElement = formElement.querySelector(options.submitButtonSelector);
 
   toggleButtonState(inputList, buttonElement, options);
 
@@ -74,7 +72,7 @@ const setEventListeners = (formElement, options) => {
     });
   });
 };
-// Ends here
+
 const enableValidation = (options) => {
   const formList = Array.from(document.querySelectorAll(options.formSelector));
 

@@ -25,9 +25,6 @@ const inputLink = newCardForm.querySelector(".modal__input_type_link");
 const profileName = document.querySelector(".profile__title");
 const profileJob = document.querySelector(".profile__description");
 
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
-
 export function openModal(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", closeByEscape);
@@ -47,33 +44,33 @@ function renderCard(cardData, gallery) {
   gallery.prepend(cardElement.getView());
 }
 
-function handleEditFormOpen() {
+const handleEditFormOpen = () => {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
   editFormValidator.enableValidation();
   editFormValidator.checkInputValidity(inputName);
   editFormValidator.checkInputValidity(inputJob);
   openModal(editModal);
-}
-function handleNewCardFormOpen() {
+};
+const handleNewCardFormOpen = () => {
   addFormValidator.enableValidation();
   newCardForm.reset();
   openModal(newCardModal);
-}
-function handleEditFormSubmit(evt) {
+};
+const handleEditFormSubmit = (evt) => {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileJob.textContent = inputJob.value;
   closeModal(editModal);
-}
-function handleNewCardFormSubmit(evt) {
+};
+const handleNewCardFormSubmit = (evt) => {
   evt.preventDefault();
   const name = inputTitle.value;
   const link = inputLink.value;
   renderCard({ name, link }, profileGallery);
   evt.target.reset();
   closeModal(newCardModal);
-}
+};
 
 profileEditBtn.addEventListener("click", handleEditFormOpen);
 newCardBtn.addEventListener("click", handleNewCardFormOpen);

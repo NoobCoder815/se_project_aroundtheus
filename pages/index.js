@@ -1,6 +1,6 @@
 import Card from "/components/Card.js";
 import FormValidator from "/components/FormValidator.js";
-import { initialCards, config } from "/components/contants.js";
+import { initialCards, config } from "/utils/constants.js";
 
 const profileTemplate = document.querySelector("#gallery-template").content;
 const profileGallery = document.querySelector(".gallery__cards");
@@ -25,6 +25,9 @@ const inputLink = newCardForm.querySelector(".modal__input_type_link");
 const profileName = document.querySelector(".profile__title");
 const profileJob = document.querySelector(".profile__description");
 
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
+
 export function openModal(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", closeByEscape);
@@ -47,14 +50,13 @@ function renderCard(cardData, gallery) {
 const handleEditFormOpen = () => {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
-  editFormValidator.enableValidation();
+  editFormValidator.toggleButtonState();
   editFormValidator.checkInputValidity(inputName);
   editFormValidator.checkInputValidity(inputJob);
   openModal(editModal);
 };
 const handleNewCardFormOpen = () => {
-  addFormValidator.enableValidation();
-  newCardForm.reset();
+  addFormValidator.toggleButtonState();
   openModal(newCardModal);
 };
 const handleEditFormSubmit = (evt) => {

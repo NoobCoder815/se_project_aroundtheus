@@ -33,14 +33,12 @@ const profileGallery = document.querySelector(".gallery__cards");
 
 const editModal = document.querySelector("#edit-modal");
 const newCardModal = document.querySelector("#new-card-modal");
-const previewImageModal = document.querySelector("#preview-image-modal");
 
 const profileEditForm = document.forms["edit-form"];
 const newCardForm = document.forms["new-card-form"];
 
 const profileEditBtn = document.querySelector("#profile-edit-button");
 const newCardBtn = document.querySelector(".profile__plus-button");
-const closeButtons = document.querySelectorAll(".modal__close-button");
 
 const inputName = profileEditForm.querySelector(".modal__input_type_name");
 const inputJob = profileEditForm.querySelector(".modal__input_type_bio");
@@ -49,23 +47,6 @@ const inputLink = newCardForm.querySelector(".modal__input_type_link");
 
 const profileName = document.querySelector(".profile__title");
 const profileJob = document.querySelector(".profile__description");
-const previewImage = previewImageModal.querySelector(".preview-image");
-const previewImageText = previewImageModal.querySelector(".image-description");
-
-const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__save-button",
-  inactiveButtonClass: "modal__save-button_inactive",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__input-error_active",
-};
-
-const editFormValidator = new FormValidator(config, profileEditForm);
-const addFormValidator = new FormValidator(config, newCardForm);
-
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
@@ -76,15 +57,8 @@ function closeModal(modal) {
   document.removeEventListener("keydown", closeByEscape);
 }
 
-function handleImageClick(cardImage) {
-  cardImage = previewImage.src = cardImage.src;
-  previewImage.alt = cardImage.alt;
-  previewImageText.textContent = cardImage.alt;
-  openModal(previewImageModal);
-}
-
 function renderCards(cardData, gallery) {
-  const cardElement = new Card(cardData, profileTemplate, handleImageClick);
+  const cardElement = new Card(cardData, profileTemplate);
   gallery.prepend(cardElement.getCardElement());
 }
 
@@ -135,3 +109,18 @@ function closeByEscape(evt) {
 initialCards.forEach((cardData) => {
   renderCards(cardData, profileGallery);
 });
+
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__save-button",
+  inactiveButtonClass: "modal__save-button_inactive",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input-error_active",
+};
+
+const editFormValidator = new FormValidator(config, profileEditForm);
+const addFormValidator = new FormValidator(config, newCardForm);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();

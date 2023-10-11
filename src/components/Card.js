@@ -1,14 +1,15 @@
-import { openModal } from "/pages/index.js";
+import { openModal } from "/src/pages/index.js";
 
 const previewImageModal = document.querySelector("#preview-image-modal");
 const previewImage = previewImageModal.querySelector(".preview-image");
 const previewImageText = previewImageModal.querySelector(".image-description");
 
 class Card {
-  constructor(data, cardSelector) {
+  constructor({ data, cardSelector }, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {

@@ -1,6 +1,13 @@
-import Card from "/components/Card.js";
-import FormValidator from "/components/FormValidator.js";
-import { initialCards, config } from "/utils/constants.js";
+import "./index.css";
+
+import Card from "/src/components/Card.js";
+import FormValidator from "/src/components/FormValidator.js";
+import { initialCards, config } from "/src/utils/constants.js";
+// import Section from "../components/Section.js";
+// import UserInfo from "../components/UserInfo.js";
+// import Popup from "../components/Popup.js";
+// import PopupWithForm from "../components/PopupWithForm.js";
+// import PopupWithImage from "../components/PopupWithImage.js";
 
 const profileTemplate = document.querySelector("#gallery-template").content;
 const profileGallery = document.querySelector(".gallery__cards");
@@ -42,10 +49,17 @@ function closeByEscape(evt) {
     closeModal(modalOpened);
   }
 }
+
 function renderCard(cardData, gallery) {
-  const cardElement = new Card(cardData, profileTemplate);
+  const cardElement = new Card({
+    data: cardData,
+    cardSelector: profileTemplate,
+  });
   gallery.prepend(cardElement.getView());
 }
+initialCards.forEach((cardData) => {
+  renderCard(cardData, profileGallery);
+});
 
 const handleEditFormOpen = () => {
   inputName.value = profileName.textContent;
@@ -88,8 +102,4 @@ modalList.forEach((modal) => {
       closeModal(modal);
     }
   });
-});
-
-initialCards.forEach((cardData) => {
-  renderCard(cardData, profileGallery);
 });

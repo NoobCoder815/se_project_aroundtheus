@@ -3,12 +3,11 @@ import Popup from "./Popup";
 class PopupWithForm extends Popup {
   constructor({ popupSelector, handleFormSubmit }) {
     super({ popupSelector });
-    this._popupForm = this._popup.querySelector(".modal__form");
+    this._popupForm = this._popup;
     this._handleFormSubmit = handleFormSubmit;
   }
 
   _close() {
-    this._popupForm.reset();
     super.close();
   }
 
@@ -28,10 +27,9 @@ class PopupWithForm extends Popup {
     super.setEventListeners();
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
-
       this._handleFormSubmit(this._getInputValues());
-
-      this._close();
+      evt.target.reset();
+      this.close();
     });
   }
 }

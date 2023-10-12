@@ -1,34 +1,33 @@
 class Popup {
   constructor({ popupSelector }) {
-    this._popup = document.querySelector(popupSelector);
+    this._popup = popupSelector;
   }
 
   open() {
     this._popup.classList.add("modal_opened");
+    this.setEventListeners();
   }
 
   close() {
     this._popup.classList.remove("modal_opened");
+    this._popup.removeEventListener("keydown", this._handleCloseByEsc);
   }
 
   _handleCloseByEsc(evt) {
     if (evt.key === "Escape") {
-      const modalOpened = document.querySelector(".modal_opened");
-      this.close(modalOpened);
+      this.close();
     }
   }
 
   setEventListeners() {
-    this._popup.addEventListener("mousedown", () => {
+    this._popup.addEventListener("mousedown", (evt) => {
       if (
-        this._popup.classList.contains("modal") ||
-        this._popup.classList.contains("modal__close-button")
+        evt.target.classList.contains("modal") ||
+        evt.target.classList.contains("modal__close-button")
       ) {
-        this._popup.this.close();
+        this.close();
       }
     });
-
-    this._popup.addEventListener("keydown", this._handleCloseByEsc);
   }
 }
 export default Popup;

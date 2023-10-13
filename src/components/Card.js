@@ -1,6 +1,6 @@
 class Card {
   constructor({ data, cardSelector, handleCardClick }) {
-    this._name = data.name;
+    this._title = data.title;
     this._link = data.link;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
@@ -39,8 +39,8 @@ class Card {
     this._likeBtn = this._cardElement.querySelector(".card__like-button");
     this._deleteBtn = this._cardElement.querySelector(".card__delete-button");
 
-    this._cardTitle.innerHTML = this._name;
-    this._cardImage.alt = this._info;
+    this._cardTitle.textContent = this._title;
+    this._cardImage.alt = this._title;
     this._cardImage.src = this._link;
 
     this._setEventListeners();

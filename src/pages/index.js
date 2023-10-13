@@ -27,8 +27,8 @@ const newCardBtn = document.querySelector(".profile__plus-button");
 
 const inputName = profileEditForm.querySelector(".modal__input_type_name");
 const inputJob = profileEditForm.querySelector(".modal__input_type_bio");
-const inputTitle = newCardForm.querySelector(".modal__input_type_title");
-const inputLink = newCardForm.querySelector(".modal__input_type_link");
+// const inputTitle = newCardForm.querySelector(".modal__input_type_title");
+// const inputLink = newCardForm.querySelector(".modal__input_type_link");
 
 const profileName = document.querySelector(".profile__title");
 const profileJob = document.querySelector(".profile__description");
@@ -67,7 +67,8 @@ const renderCard = new Section(
 
 const cardModalNew = new PopupWithForm({
   popupSelector: newCardModal,
-  handleFormSubmit: (newCardData) => {
+  handleFormSubmit: (evt) => {
+    const newCardData = cardModalNew.getInputValues();
     const popupImage = new PopupWithImage(
       {
         data: newCardData,
@@ -83,28 +84,31 @@ const cardModalNew = new PopupWithForm({
         popupImage.open();
       },
     });
-    const card = cardElement.getView();
-    renderCard.setItem(card);
+    const newCard = cardElement.getView();
+    renderCard.setItem(newCard);
+    cardModalNew.close();
+    evt.target.reset();
   },
 });
-
 renderCard.renderItems();
 
 const editModalNew = new PopupWithForm({
   popupSelector: editModal,
-  handleFormSubmit: (userData) => {
+  handleFormSubmit: () => {
+    const userData = editModalNew.getInputValues();
     const userInfo = new UserInfo({
-      userName: profileName.textContent,
-      userJob: profileJob.textContent,
-      input: userData,
+      userName: profileName,
+      userJob: profileJob,
     });
 
-    userInfo.setUserInfo();
+    userInfo.setUserInfo(userData);
     editModalNew.close();
   },
 });
 
 const handleEditFormOpen = () => {
+  inputName.value = profileName.textContent;
+  inputJob.value = profileJob.textContent;
   editFormValidator.toggleButtonState();
   editModalNew.open();
 };

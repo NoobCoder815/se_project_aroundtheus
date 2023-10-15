@@ -1,37 +1,38 @@
 import Popup from "./Popup";
 
 class PopupWithForm extends Popup {
-  constructor({ popupSelector, handleFormSubmit }) {
-    super({ popupSelector });
+  constructor({ popup, handleFormSubmit }, config) {
+    super({ popup });
     this._popupForm = this._popup;
     this._handleFormSubmit = handleFormSubmit;
+    this._inputSelector = config.inputSelector;
   }
 
-  _close() {
-    super.close();
+  _getInputList() {
+    this._inputList = [
+      ...this._popupForm.querySelectorAll(this._inputSelector),
+    ];
   }
 
   getInputValues() {
-    const inputList = [...this._popupForm.querySelectorAll(".modal__input")];
+    this._getInputList();
 
     const formValues = {};
 
-    inputList.forEach((input) => {
+    this._inputList.forEach((input) => {
       formValues[input.name] = input.value;
     });
 
     return formValues;
   }
-  // Loopy Loopy Loop
-  // setEventListeners() {
-  //   super.setEventListeners();
-  //   this._popupForm.addEventListener("submit", () => {
-  //     // debugger;
-  //     this._handleFormSubmit(this._getInputValues());
-  //     console.log("wee wee");
-  //     this._close();
-  //   });
-  // }
+
+  setInputValues(data) {
+    this._getInputList();
+
+    this._inputList.forEach((input) => {
+      input.value = data[input.name];
+    });
+  }
 
   setEventListeners() {
     super.setEventListeners();

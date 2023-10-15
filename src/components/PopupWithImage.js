@@ -1,25 +1,18 @@
 import Popup from "./Popup";
 
 class PopupWithImage extends Popup {
-  constructor({ data, popupImage, popupImageText }, popupSelector) {
-    super({ popupSelector });
-    this._popupSelector = popupSelector;
+  constructor({ popupImage, popupImageText }, popup) {
+    super({ popup });
+    this._popup = popup;
     this._popupImage = popupImage;
     this._popupImageText = popupImageText;
-    this._title = data.title;
-    this._link = data.link;
   }
 
-  open() {
+  open(data) {
     super.open();
-    this._popupImage.src = this._link;
-    this._popupImage.alt = this._title;
-    this._popupImageText.textContent = this._title;
-    this._setEventListeners();
-  }
-
-  _setEventListeners() {
-    super.setEventListeners();
+    this._popupImage.src = data.link;
+    this._popupImage.alt = data.title;
+    this._popupImageText.textContent = data.title;
   }
 }
 

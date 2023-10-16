@@ -4,11 +4,11 @@ class UserInfo {
     this._userJob = userJob;
   }
 
-  getUserInfo(info) {
+  getUserInfo() {
     const userData = {};
 
-    userData[info.name] = this._userName.textContent;
-    userData[info.job] = this._userJob.textContent;
+    userData.name = this._userName.textContent;
+    userData.job = this._userJob.textContent;
 
     console.log(userData);
     return userData;

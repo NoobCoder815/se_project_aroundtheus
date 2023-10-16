@@ -48,16 +48,6 @@ const popupImage = new PopupWithImage(
   previewImageModal
 );
 
-const renderCard = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      createCard(cardData);
-    },
-  },
-  profileGallery
-);
-
 const userInfo = new UserInfo({
   userName: profileName,
   userJob: profileJob,
@@ -71,17 +61,27 @@ const createCard = (data) => {
       popupImage.open(data);
     },
   });
-  const card = cardElement.getView();
-  renderCard.setItem(card);
+  return cardElement.getView();
 };
+
+const addCard = (data) => {
+  const card = createCard(data);
+  cardSection.setItem(card);
+};
+
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: addCard,
+  },
+  profileGallery
+);
 
 const editModalNew = new PopupWithForm(
   {
     popup: editModal,
-    handleFormSubmit: (evt) => {
-      evt.preventDefault();
-      const userInput = editModalNew.getInputValues();
-      userInfo.setUserInfo(userInput);
+    handleFormSubmit: (editModalData) => {
+      userInfo.setUserInfo(editModalData);
       editModalNew.close();
     },
   },
@@ -90,24 +90,18 @@ const editModalNew = new PopupWithForm(
 const cardModalNew = new PopupWithForm(
   {
     popup: newCardModal,
-    handleFormSubmit: (evt) => {
-      evt.preventDefault();
-      const newCardData = cardModalNew.getInputValues();
-      createCard(newCardData);
+    handleFormSubmit: (newCardData) => {
+      addCard(newCardData);
       cardModalNew.close();
-      evt.target.reset();
     },
   },
   config
 );
 
-// Maintenance
 const handleEditFormOpen = () => {
   formValidators["edit-form"].resetValidation();
-  const userData = userInfo.getUserInfo(userName);
-  // debugger;
+  const userData = userInfo.getUserInfo();
   editModalNew.setInputValues(userData);
-
   editModalNew.open();
 };
 const handleNewCardFormOpen = () => {
@@ -123,4 +117,4 @@ cardModalNew.setEventListeners();
 popupImage.setEventListeners();
 
 enableValidation(config);
-renderCard.renderItems();
+cardSection.renderItems();

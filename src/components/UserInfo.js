@@ -1,18 +1,15 @@
 class UserInfo {
-  constructor({ userName, userJob }, config) {
+  constructor({ userName, userJob }) {
     this._userName = userName;
     this._userJob = userJob;
-    this._inputSelector = config.inputSelector;
   }
 
-  getUserInfo(form) {
-    this._inputList = [...form.querySelectorAll(this._inputSelector)];
-
+  getUserInfo(info) {
     const userData = {};
-    this._inputList.forEach((input) => {
-      //
-      userData[input.name] = this._userName.textContent;
-    });
+
+    userData[info.name] = this._userName.textContent;
+    userData[info.job] = this._userJob.textContent;
+
     console.log(userData);
     return userData;
   }

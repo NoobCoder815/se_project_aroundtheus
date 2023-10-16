@@ -24,11 +24,6 @@ const newCardBtn = document.querySelector(".profile__plus-button");
 
 const formValidators = {};
 
-// Delete soon
-const profileEditForm = document.forms["edit-form"];
-const userName = profileEditForm.querySelector(".modal__input");
-const userJob = profileEditForm.querySelector(".modal__input_type_bio");
-
 const enableValidation = (config) => {
   const formList = [...document.querySelectorAll(config.formSelector)];
   formList.forEach((form) => {
@@ -38,6 +33,20 @@ const enableValidation = (config) => {
     formValidators[formName] = validator;
     validator.enableValidation();
   });
+};
+const createCard = (data) => {
+  const cardElement = new Card({
+    data: data,
+    cardSelector: profileTemplate,
+    handleCardClick: () => {
+      popupImage.open(data);
+    },
+  });
+  return cardElement.getView();
+};
+const addCard = (data) => {
+  const card = createCard(data);
+  cardSection.setItem(card);
 };
 
 const popupImage = new PopupWithImage(
@@ -52,22 +61,6 @@ const userInfo = new UserInfo({
   userName: profileName,
   userJob: profileJob,
 });
-
-const createCard = (data) => {
-  const cardElement = new Card({
-    data: data,
-    cardSelector: profileTemplate,
-    handleCardClick: () => {
-      popupImage.open(data);
-    },
-  });
-  return cardElement.getView();
-};
-
-const addCard = (data) => {
-  const card = createCard(data);
-  cardSection.setItem(card);
-};
 
 const cardSection = new Section(
   {

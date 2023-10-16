@@ -10,7 +10,6 @@ class UserInfo {
     userData.name = this._userName.textContent;
     userData.job = this._userJob.textContent;
 
-    console.log(userData);
     return userData;
   }
 

@@ -7,10 +7,11 @@ import PopupWithForm from "/src/components/PopupWithForm.js";
 import PopupWithImage from "/src/components/PopupWithImage.js";
 import { initialCards, config } from "/src/utils/constants.js";
 
-const profileTemplate = document.querySelector("#gallery-template").content;
-const profileGallery = document.querySelector(".gallery__cards");
 const profileName = document.querySelector(".profile__title");
 const profileJob = document.querySelector(".profile__description");
+const profileGallery = document.querySelector(".gallery__cards");
+
+const cardTemplate = document.querySelector("#card-template").content;
 
 const editModal = document.getElementById("edit-modal");
 const newCardModal = document.getElementById("new-card-modal");
@@ -37,7 +38,7 @@ const enableValidation = (config) => {
 const createCard = (data) => {
   const cardElement = new Card({
     data: data,
-    cardSelector: profileTemplate,
+    cardSelector: cardTemplate,
     handleCardClick: () => {
       popupImage.open(data);
     },
@@ -92,9 +93,9 @@ const cardModalNew = new PopupWithForm(
 );
 
 const handleEditFormOpen = () => {
-  formValidators["edit-form"].resetValidation();
   const userData = userInfo.getUserInfo();
   editModalNew.setInputValues(userData);
+  formValidators["edit-form"].resetValidation();
   editModalNew.open();
 };
 const handleNewCardFormOpen = () => {

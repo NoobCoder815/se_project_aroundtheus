@@ -114,7 +114,16 @@
       </div>
     </div>
 
-    <template id="gallery-template">
+    <div class="modal modal_opened" id="delete-confirmation-modal">
+      <div class="modal__delete-container">
+        <form class="modal__form" name="delete__form">
+          <h2 class="confirmation-text">Are you sure?</h2>
+          <button class="confirmation-btn" type="button">Yes</button>
+        </form>
+      </div>
+    </div>
+
+    <template id="card-template">
       <li class="card">
         <img src="" alt="" class="card__image" />
         <button class="card__delete-button" type="button"></button>

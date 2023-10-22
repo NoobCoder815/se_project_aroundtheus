@@ -1,0 +1,36 @@
+.modal__delete-container {
+  margin: auto;
+  position: relative;
+  background-color: white;
+  color: black;
+  width: 430px;
+  height: 181px;
+  border-radius: 10px;
+}
+
+.confirmation-text {
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.2;
+  text-align: left;
+  margin-bottom: 38px;
+  margin-top: 34px;
+  margin-left: -28px;
+  width: 330px;
+}
+
+.confirmation-btn {
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+  border-radius: 2px;
+  background-color: black;
+  color: white;
+  padding: 0;
+  width: 358px;
+  height: 50.15px;
+  cursor: pointer;
+}

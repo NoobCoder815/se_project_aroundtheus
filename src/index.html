@@ -20,11 +20,14 @@
       </header>
       <main class="page__content">
         <section class="profile page__section">
-          <img
-            class="profile__image"
-            src="<%= require('/src/images/jacques-cousteau.jpg')%>"
-            alt="Avatar"
-          />
+          <div class="profile__image-container">
+            <img
+              class="profile__image"
+              src="<%= require('/src/images/jacques-cousteau.jpg')%>"
+              alt="Avatar"
+            />
+            <button class="edit__avatar-button" type="button"></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button class="profile__edit-button" type="button"></button>
@@ -103,6 +106,35 @@
       </div>
     </div>
 
+    <div class="modal" id="avatar-edit-modal">
+      <div class="modal__container modal__container_avatar">
+        <button class="modal__close-button" type="button"></button>
+        <p class="modal__label">Change profile picture</p>
+        <form class="modal__form" name="avatar-edit-form" novalidate>
+          <input
+            type="url"
+            class="modal__input modal__input_type_title"
+            id="avatar-link"
+            name="avatar"
+            placeholder="Update Image"
+            required
+          />
+          <span class="avatar-link-error modal__input-error"></span>
+          <button class="modal__save-button">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal" id="delete-confirmation-modal">
+      <div class="modal__delete-container">
+        <button class="modal__close-button" type="button"></button>
+        <p class="confirmation-text">Are you sure?</p>
+        <form class="modal__form" name="delete__form">
+          <button class="confirmation-btn" type="button">Yes</button>
+        </form>
+      </div>
+    </div>
+
     <div class="modal" id="preview-image-modal">
       <div class="modal__image-container">
         <button
@@ -111,15 +143,6 @@
         ></button>
         <img src="." alt="." class="preview-image" />
         <p class="image-description"></p>
-      </div>
-    </div>
-
-    <div class="modal modal_opened" id="delete-confirmation-modal">
-      <div class="modal__delete-container">
-        <form class="modal__form" name="delete__form">
-          <h2 class="confirmation-text">Are you sure?</h2>
-          <button class="confirmation-btn" type="button">Yes</button>
-        </form>
       </div>
     </div>
 

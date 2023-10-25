@@ -52,7 +52,7 @@
   font-size: 12px;
 }
 
-.modal__save-button {
+.modal__confirm-button {
   font-family: Inter;
   font-size: 18px;
   font-weight: 400;
@@ -67,18 +67,18 @@
   cursor: pointer;
 }
 
-.modal__save-button:hover {
+.modal__confirm-button:hover {
   cursor: pointer;
   opacity: 0.8;
 }
 
-.modal__save-button_inactive {
+.modal__confirm-button_inactive {
   background-color: white;
   color: #bbb;
   border: solid 1px #bbb;
 }
 
-.modal__save-button_inactive:hover {
+.modal__confirm-button_inactive:hover {
   cursor: default;
   opacity: 1;
 }
@@ -117,7 +117,7 @@
     margin-left: 20px;
   }
 
-  .modal__save-button {
+  .modal__confirm-button {
     width: 238px;
     height: 46px;
     font-size: 14px;

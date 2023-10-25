@@ -1,37 +1,75 @@
 const initialCards = [
   {
-    title: "Yosemite Valley",
+    name: "Yosemite Valley",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
   },
   {
-    title: "Lake Louise",
+    name: "Lake Louise",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
   },
   {
-    title: "Bald Mountains",
+    name: "Bald Mountains",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
   },
   {
-    title: "Latemar",
+    name: "Latemar",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
   },
   {
-    title: "Vanoise National Park",
+    name: "Vanoise National Park",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
   },
   {
-    title: "Lago di Braies",
+    name: "Lago di Braies",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
 
+// Profile data
+const profileName = document.querySelector(".profile__title");
+const profileDescription = document.querySelector(".profile__description");
+const profileAvatar = document.querySelector(".profile__image");
+// Card gallery + card template
+const cardGallery = document.querySelector(".gallery__cards");
+const cardTemplate = document.querySelector("#card-template").content;
+// All modals
+const editModal = document.getElementById("edit-modal");
+const newCardModal = document.getElementById("new-card-modal");
+const avatarModal = document.getElementById("avatar-edit-modal");
+const deleteCardModal = document.getElementById("delete-confirmation-modal");
+const previewImageModal = document.getElementById("preview-image-modal");
+// Preview image + text
+const previewImage = previewImageModal.querySelector(".preview-image");
+const previewImageText = previewImageModal.querySelector(".image-description");
+// Buttons
+const profileEditBtn = document.querySelector(".profile__edit-button");
+const newCardBtn = document.querySelector(".profile__plus-button");
+const avatarEditBtn = document.querySelector(".edit__avatar-button");
+
 const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__save-button",
-  inactiveButtonClass: "modal__save-button_inactive",
+  submitButtonSelector: ".modal__confirm-button",
+  inactiveButtonClass: "modal__confirm-button_inactive",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__input-error_active",
 };
 
-export { initialCards, config };
+export {
+  profileName,
+  profileDescription,
+  profileAvatar,
+  cardGallery,
+  cardTemplate,
+  editModal,
+  newCardModal,
+  avatarModal,
+  deleteCardModal,
+  previewImageModal,
+  previewImageText,
+  previewImage,
+  profileEditBtn,
+  newCardBtn,
+  avatarEditBtn,
+  config,
+};

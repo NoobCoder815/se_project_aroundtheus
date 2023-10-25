@@ -1,11 +1,6 @@
-.modal__delete-container {
-  margin: auto;
-  position: relative;
-  background-color: white;
-  color: black;
+.modal__container_delete {
   width: 430px;
   height: 181px;
-  border-radius: 10px;
 }
 
 .confirmation-text {

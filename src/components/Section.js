@@ -13,7 +13,6 @@ class Section {
 
   setItem(item) {
     this._container.prepend(item);
-    // this.renderItems();
   }
 }
 

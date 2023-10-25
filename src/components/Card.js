@@ -1,6 +1,6 @@
 class Card {
   constructor(
-    { name, link, _id, isLiked },
+    { name, link, isLiked, _id },
     { handleCardClick, handleDeleteClick, handleLikeClick },
     cardTemplate
   ) {
@@ -28,8 +28,11 @@ class Card {
   }
 
   _renderLike = () => {
-    this._likeBtn.classList.toggle("card__like-button_active");
-    // this._isLiked = !isLiked;
+    if (this._isLiked) {
+      this._likeBtn.classList.add("card__like-button_active");
+    } else {
+      this._likeBtn.classList.remove("card__like-button_active");
+    }
   };
 
   removeCard = () => {
@@ -59,6 +62,7 @@ class Card {
     this._cardImage.alt = this._title;
     this._cardImage.src = this._link;
 
+    this._renderLike();
     this._setEventListeners();
 
     return this._cardElement;

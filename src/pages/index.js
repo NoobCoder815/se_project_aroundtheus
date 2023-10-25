@@ -6,30 +6,13 @@ import UserInfo from "/src/components/UserInfo.js";
 import PopupWithConfirmation from "/src/components/PopupWithConfirmation.js";
 import PopupWithForm from "/src/components/PopupWithForm.js";
 import PopupWithImage from "/src/components/PopupWithImage.js";
-import {
-  profileName,
-  profileDescription,
-  profileAvatar,
-  cardGallery,
-  cardTemplate,
-  editModal,
-  newCardModal,
-  avatarModal,
-  deleteCardModal,
-  previewImageModal,
-  previewImageText,
-  previewImage,
-  profileEditBtn,
-  newCardBtn,
-  avatarEditBtn,
-  config,
-} from "/src/utils/constants.js";
+import * as constants from "/src/utils/constants.js";
 import Api from "/src/components/Api.js";
 // User Data
 const userInfo = new UserInfo({
-  userName: profileName,
-  userDescription: profileDescription,
-  userProfileImage: profileAvatar,
+  userName: constants.profileName,
+  userDescription: constants.profileDescription,
+  userProfileImage: constants.profileAvatar,
 });
 // Api Instantiation
 const api = new Api({
@@ -39,32 +22,21 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-const userData = api.getUserInformation().catch((err) => console.error(err));
-const apiCards = api.getInitialCards().catch((err) => console.error(err));
-Promise.all([userData, apiCards]).then(([userData, initialCards]) => {
-  userInfo.setUserInfo(userData);
-  userInfo.setUserProfileImage(userData);
-  const apiCardSection = new Section(
-    {
-      items: initialCards,
-      renderer: addCard,
-    },
-    cardGallery
-  );
-  apiCardSection.renderItems();
-});
-// Set validation for all forms
-const formValidators = {};
-const enableValidation = (config) => {
-  const formList = [...document.querySelectorAll(config.formSelector)];
-  formList.forEach((form) => {
-    const validator = new FormValidator(config, form);
-    const formName = form.getAttribute("name");
 
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-};
+Promise.all([api.getUserInformation(), api.getInitialCards()]).then(
+  ([userData, initialCards]) => {
+    userInfo.setUserInfo(userData);
+    userInfo.setUserProfileImage(userData);
+    const apiCardSection = new Section(
+      {
+        items: initialCards,
+        renderer: addCard,
+      },
+      constants.cardGallery
+    );
+    apiCardSection.renderItems();
+  }
+);
 // Create Card + Add Card Functions
 const createCard = (cardData) => {
   const cardElement = new Card(
@@ -83,25 +55,30 @@ const createCard = (cardData) => {
             .catch((err) => console.error(err));
         });
       },
-      handleLikeClick: (cardId) => {
-        if (!cardId._isLiked) {
+      handleLikeClick: (card) => {
+        // debugger;
+        if (!cardData.isLiked) {
           api
-            .addLike(cardId)
+            .addLike(card)
             .then((res) => {
-              cardElement.setLike(res.isLiked);
+              cardElement.setLike(res);
+              console.log("add");
+              console.log(res.isLiked);
             })
             .catch((err) => console.error(err));
         } else {
           api
-            .deleteLike(cardId)
+            .deleteLike(card)
             .then((res) => {
               cardElement.setLike(res.isLiked);
+              console.error("delete");
+              console.log(res.isLiked);
             })
             .catch((err) => console.error(err));
         }
       },
     },
-    cardTemplate
+    constants.cardTemplate
   );
   return cardElement.getView();
 };
@@ -115,19 +92,19 @@ const cardSection = new Section(
     items: [],
     renderer: () => {},
   },
-  cardGallery
+  constants.cardGallery
 );
 // Popup Instantiations
 const popupImage = new PopupWithImage(
   {
-    popupImage: previewImage,
-    popupImageText: previewImageText,
+    popupImage: constants.previewImage,
+    popupImageText: constants.previewImageText,
   },
-  previewImageModal
+  constants.previewImageModal
 );
 const editModalNew = new PopupWithForm(
   {
-    popup: editModal,
+    popup: constants.editModal,
     handleFormSubmit: (editModalData) => {
       api
         .editProfileData(editModalData)
@@ -138,11 +115,11 @@ const editModalNew = new PopupWithForm(
         .catch((err) => console.error(err));
     },
   },
-  config
+  constants.config
 );
 const cardModalNew = new PopupWithForm(
   {
-    popup: newCardModal,
+    popup: constants.newCardModal,
     handleFormSubmit: (newCardData) => {
       api
         .addNewCard(newCardData)
@@ -153,11 +130,11 @@ const cardModalNew = new PopupWithForm(
         .catch((err) => console.error(err));
     },
   },
-  config
+  constants.config
 );
 const avatarModalNew = new PopupWithForm(
   {
-    popup: avatarModal,
+    popup: constants.avatarModal,
     handleFormSubmit: (avatarData) => {
       api
         .updateProfileImage(avatarData)
@@ -168,13 +145,13 @@ const avatarModalNew = new PopupWithForm(
         .catch((err) => console.error(err));
     },
   },
-  config
+  constants.config
 );
 const deleteModalNew = new PopupWithConfirmation(
   {
-    popup: deleteCardModal,
+    popup: constants.deleteCardModal,
   },
-  config
+  constants.config
 );
 // Handler Functions
 const handleEditFormOpen = () => {
@@ -192,14 +169,25 @@ const handleAvatarEditOpen = () => {
   avatarModalNew.open();
 };
 // Click Handlers
-profileEditBtn.addEventListener("click", handleEditFormOpen);
-newCardBtn.addEventListener("click", handleNewCardFormOpen);
-avatarEditBtn.addEventListener("click", handleAvatarEditOpen);
+constants.profileEditBtn.addEventListener("click", handleEditFormOpen);
+constants.newCardBtn.addEventListener("click", handleNewCardFormOpen);
+constants.avatarEditBtn.addEventListener("click", handleAvatarEditOpen);
 // Event Listeners
 popupImage.setEventListeners();
 editModalNew.setEventListeners();
 cardModalNew.setEventListeners();
 avatarModalNew.setEventListeners();
 deleteModalNew.setEventListeners();
-// Enable all form validation
-enableValidation(config);
+// Set and enable validation for all forms
+const formValidators = {};
+const enableValidation = (config) => {
+  const formList = [...document.querySelectorAll(config.formSelector)];
+  formList.forEach((form) => {
+    const validator = new FormValidator(config, form);
+    const formName = form.getAttribute("name");
+
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+enableValidation(constants.config);

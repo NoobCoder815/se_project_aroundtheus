@@ -22,6 +22,7 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
+
 // Create Card
 const createCard = (cardData) => {
   const cardElement = new Card(
@@ -29,27 +30,31 @@ const createCard = (cardData) => {
     {
       handleCardClick: () => popupImage.open(cardData),
       handleCardDelete: () => {
-        deleteModalNew.open();
-        deleteModalNew.submitForm(() => {
+        deleteConfirmation.open();
+        deleteConfirmation.submit(() => {
           function makeRequest() {
             return api.deleteCard(cardData._id).then(() => {
               cardElement.removeCard();
             });
           }
-          handleSubmit(makeRequest, deleteModalNew, "Deleting...");
+          constants.handleSubmit(
+            makeRequest,
+            deleteConfirmation,
+            "Deleting..."
+          );
         });
       },
-      handleCardLike: (card) => {
+      handleCardLike: (cardId) => {
         if (!cardElement.isLiked) {
           api
-            .addLike(card)
+            .addLike(cardId)
             .then((res) => {
               cardElement.setLikeStatus(res.isLiked);
             })
             .catch(console.error);
         } else {
           api
-            .deleteLike(card)
+            .deleteLike(cardId)
             .then((res) => {
               cardElement.setLikeStatus(res.isLiked);
             })
@@ -61,18 +66,19 @@ const createCard = (cardData) => {
   );
   return cardElement.getView();
 };
-// Universal function for submit handling
-function handleSubmit(request, popupInstance, loadingText = "Saving...") {
-  popupInstance.renderLoading(true, loadingText);
-  request()
-    .then(() => {
-      popupInstance.close();
-    })
-    .catch(console.error)
-    .finally(() => {
-      popupInstance.renderLoading(false);
-    });
-}
+// Add card
+const addCard = (cardData) => {
+  const card = createCard(cardData);
+  cardSection.setItem(card);
+};
+// Card section
+const cardSection = new Section(
+  {
+    items: [],
+    renderer: addCard,
+  },
+  constants.cardGallery
+);
 // Popup Instantiations
 const popupImage = new PopupWithImage(
   {
@@ -81,52 +87,52 @@ const popupImage = new PopupWithImage(
   },
   constants.previewImageModal
 );
-const editModalNew = new PopupWithForm(
+const editProfileForm = new PopupWithForm(
   {
     popup: constants.editModal,
-    handleFormSubmit: (editModalData) => {
+    handleFormSubmit: (editFormData) => {
       function makeRequest() {
-        return api.editProfileData(editModalData).then((editModalData) => {
-          userInfo.setUserInfo(editModalData);
-          editModalNew.resetForm();
+        return api.editProfileData(editFormData).then((editFormData) => {
+          userInfo.setUserInfo(editFormData);
+          editProfileForm.resetForm();
         });
       }
-      handleSubmit(makeRequest, editModalNew);
+      constants.handleSubmit(makeRequest, editProfileForm);
     },
   },
   constants.config
 );
-const cardModalNew = new PopupWithForm(
+const newCardForm = new PopupWithForm(
   {
     popup: constants.newCardModal,
     handleFormSubmit: (newCardData) => {
       function makeRequest() {
         return api.addNewCard(newCardData).then((newCardData) => {
-          constants.cardGallery.prepend(createCard(newCardData));
-          cardModalNew.resetForm();
+          addCard(newCardData);
+          newCardForm.resetForm();
         });
       }
-      handleSubmit(makeRequest, cardModalNew);
+      constants.handleSubmit(makeRequest, newCardForm);
     },
   },
   constants.config
 );
-const avatarModalNew = new PopupWithForm(
+const avatarEditForm = new PopupWithForm(
   {
     popup: constants.avatarModal,
     handleFormSubmit: (avatarData) => {
       function makeRequest() {
         return api.updateProfileImage(avatarData).then((res) => {
           userInfo.setUserProfileImage(res);
-          avatarModalNew.resetForm();
+          avatarEditForm.resetForm();
         });
       }
-      handleSubmit(makeRequest, avatarModalNew);
+      handleSubmit(makeRequest, avatarEditForm);
     },
   },
   constants.config
 );
-const deleteModalNew = new PopupWithConfirmation(
+const deleteConfirmation = new PopupWithConfirmation(
   {
     popup: constants.deleteCardModal,
   },
@@ -135,17 +141,17 @@ const deleteModalNew = new PopupWithConfirmation(
 // Handler Functions
 const handleEditFormOpen = () => {
   const userData = userInfo.getUserInfo();
-  editModalNew.setInputValues(userData);
+  editProfileForm.setInputValues(userData);
   formValidators["edit-form"].resetValidation();
-  editModalNew.open();
+  editProfileForm.open();
 };
 const handleNewCardFormOpen = () => {
   formValidators["new-card-form"].resetValidation();
-  cardModalNew.open();
+  newCardForm.open();
 };
 const handleAvatarEditOpen = () => {
   formValidators["avatar-edit-form"].resetValidation();
-  avatarModalNew.open();
+  avatarEditForm.open();
 };
 // Click Handlers
 constants.profileEditBtn.addEventListener("click", handleEditFormOpen);
@@ -153,10 +159,10 @@ constants.newCardBtn.addEventListener("click", handleNewCardFormOpen);
 constants.avatarEditBtn.addEventListener("click", handleAvatarEditOpen);
 // Event Listeners
 popupImage.setEventListeners();
-editModalNew.setEventListeners();
-cardModalNew.setEventListeners();
-avatarModalNew.setEventListeners();
-deleteModalNew.setEventListeners();
+editProfileForm.setEventListeners();
+newCardForm.setEventListeners();
+avatarEditForm.setEventListeners();
+deleteConfirmation.setEventListeners();
 // Set and enable validation for all forms
 const formValidators = {};
 const enableValidation = (config) => {
@@ -175,16 +181,7 @@ Promise.all([api.getUserInformation(), api.getInitialCards()])
   .then(([userData, initialCards]) => {
     userInfo.setUserInfo(userData);
     userInfo.setUserProfileImage(userData);
-    const apiCardSection = new Section(
-      {
-        items: initialCards,
-        renderer: (initialCard) => {
-          const card = createCard(initialCard);
-          apiCardSection.setItem(card);
-        },
-      },
-      constants.cardGallery
-    );
-    apiCardSection.renderItems();
+    initialCards.forEach((card) => addCard(card));
   })
   .catch(console.error);
+cardSection.renderItems();

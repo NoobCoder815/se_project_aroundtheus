@@ -7,8 +7,8 @@ class PopupWithConfirmation extends Popup {
     this._submitBtnText = this._submitBtn.textContent;
   }
 
-  submitForm(callBack) {
-    this._handleFormSubmit = callBack;
+  submit(callBack) {
+    this._handleSubmit = callBack;
   }
 
   renderLoading(isLoading, loadingText = "Saving...") {
@@ -23,7 +23,7 @@ class PopupWithConfirmation extends Popup {
     super.setEventListeners();
     this._popup.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._handleFormSubmit();
+      this._handleSubmit();
     });
   }
 }

@@ -27,6 +27,18 @@ const config = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__input-error_active",
 };
+// Universal function for submit handling
+function handleSubmit(request, popupInstance, loadingText = "Saving...") {
+  popupInstance.renderLoading(true, loadingText);
+  request()
+    .then(() => {
+      popupInstance.close();
+    })
+    .catch(console.error)
+    .finally(() => {
+      popupInstance.renderLoading(false);
+    });
+}
 
 export {
   profileName,
@@ -45,4 +57,5 @@ export {
   newCardBtn,
   avatarEditBtn,
   config,
+  handleSubmit,
 };

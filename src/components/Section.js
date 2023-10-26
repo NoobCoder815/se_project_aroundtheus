@@ -12,7 +12,7 @@ class Section {
   }
 
   setItem(item) {
-    this._container.append(item);
+    this._container.prepend(item);
   }
 }
 

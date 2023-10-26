@@ -7,6 +7,7 @@ import PopupWithConfirmation from "/src/components/PopupWithConfirmation.js";
 import PopupWithForm from "/src/components/PopupWithForm.js";
 import PopupWithImage from "/src/components/PopupWithImage.js";
 import * as constants from "/src/utils/constants.js";
+import { handleSubmit } from "/src/utils/utils.js";
 import Api from "/src/components/Api.js";
 // User Data
 const userInfo = new UserInfo({
@@ -36,11 +37,7 @@ const createCard = (cardData) => {
               cardElement.removeCard();
             });
           }
-          constants.handleSubmit(
-            makeRequest,
-            deleteConfirmation,
-            "Deleting..."
-          );
+          handleSubmit(makeRequest, deleteConfirmation, "Deleting...");
         });
       },
       handleCardLike: (cardId) => {
@@ -74,7 +71,7 @@ const addCard = (cardData) => {
 const cardSection = new Section(
   {
     items: [],
-    renderer: addCard,
+    renderer: () => {},
   },
   constants.cardGallery
 );
@@ -96,7 +93,7 @@ const editProfileForm = new PopupWithForm(
           editProfileForm.resetForm();
         });
       }
-      constants.handleSubmit(makeRequest, editProfileForm);
+      handleSubmit(makeRequest, editProfileForm);
     },
   },
   constants.config
@@ -111,7 +108,7 @@ const newCardForm = new PopupWithForm(
           newCardForm.resetForm();
         });
       }
-      constants.handleSubmit(makeRequest, newCardForm);
+      handleSubmit(makeRequest, newCardForm);
     },
   },
   constants.config
@@ -126,7 +123,7 @@ const avatarEditForm = new PopupWithForm(
           avatarEditForm.resetForm();
         });
       }
-      constants.handleSubmit(makeRequest, avatarEditForm);
+      handleSubmit(makeRequest, avatarEditForm);
     },
   },
   constants.config
@@ -181,7 +178,7 @@ Promise.all([api.getUserInformation(), api.getInitialCards()])
     userInfo.setUserInfo(userData);
     userInfo.setUserProfileImage(userData);
     initialCards.forEach((card) => addCard(card));
+    // Render cards
+    cardSection.renderItems();
   })
   .catch(console.error);
-// Render cards
-cardSection.renderItems();

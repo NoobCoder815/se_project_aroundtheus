@@ -22,59 +22,38 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-
-Promise.all([api.getUserInformation(), api.getInitialCards()]).then(
-  ([userData, initialCards]) => {
-    userInfo.setUserInfo(userData);
-    userInfo.setUserProfileImage(userData);
-    const apiCardSection = new Section(
-      {
-        items: initialCards,
-        renderer: addCard,
-      },
-      constants.cardGallery
-    );
-    apiCardSection.renderItems();
-  }
-);
-// Create Card + Add Card Functions
+// Create Card
 const createCard = (cardData) => {
   const cardElement = new Card(
     cardData,
     {
       handleCardClick: () => popupImage.open(cardData),
-      handleDeleteClick: () => {
+      handleCardDelete: () => {
         deleteModalNew.open();
         deleteModalNew.submitForm(() => {
-          api
-            .deleteCard(cardData._id)
-            .then(() => {
-              deleteModalNew.close();
+          function makeRequest() {
+            return api.deleteCard(cardData._id).then(() => {
               cardElement.removeCard();
-            })
-            .catch((err) => console.error(err));
+            });
+          }
+          handleSubmit(makeRequest, deleteModalNew, "Deleting...");
         });
       },
-      handleLikeClick: (card) => {
-        // debugger;
-        if (!cardData.isLiked) {
+      handleCardLike: (card) => {
+        if (!cardElement.isLiked) {
           api
             .addLike(card)
             .then((res) => {
-              cardElement.setLike(res);
-              console.log("add");
-              console.log(res.isLiked);
+              cardElement.setLikeStatus(res.isLiked);
             })
-            .catch((err) => console.error(err));
+            .catch(console.error);
         } else {
           api
             .deleteLike(card)
             .then((res) => {
-              cardElement.setLike(res.isLiked);
-              console.error("delete");
-              console.log(res.isLiked);
+              cardElement.setLikeStatus(res.isLiked);
             })
-            .catch((err) => console.error(err));
+            .catch(console.error);
         }
       },
     },
@@ -82,18 +61,18 @@ const createCard = (cardData) => {
   );
   return cardElement.getView();
 };
-const addCard = (cardData) => {
-  const card = createCard(cardData);
-  cardSection.setItem(card);
-};
-// Section instance to use methods
-const cardSection = new Section(
-  {
-    items: [],
-    renderer: () => {},
-  },
-  constants.cardGallery
-);
+// Universal function for submit handling
+function handleSubmit(request, popupInstance, loadingText = "Saving...") {
+  popupInstance.renderLoading(true, loadingText);
+  request()
+    .then(() => {
+      popupInstance.close();
+    })
+    .catch(console.error)
+    .finally(() => {
+      popupInstance.renderLoading(false);
+    });
+}
 // Popup Instantiations
 const popupImage = new PopupWithImage(
   {
@@ -106,13 +85,13 @@ const editModalNew = new PopupWithForm(
   {
     popup: constants.editModal,
     handleFormSubmit: (editModalData) => {
-      api
-        .editProfileData(editModalData)
-        .then((editModalData) => {
+      function makeRequest() {
+        return api.editProfileData(editModalData).then((editModalData) => {
           userInfo.setUserInfo(editModalData);
-          editModalNew.close();
-        })
-        .catch((err) => console.error(err));
+          editModalNew.resetForm();
+        });
+      }
+      handleSubmit(makeRequest, editModalNew);
     },
   },
   constants.config
@@ -121,13 +100,13 @@ const cardModalNew = new PopupWithForm(
   {
     popup: constants.newCardModal,
     handleFormSubmit: (newCardData) => {
-      api
-        .addNewCard(newCardData)
-        .then((newCardData) => {
-          addCard(newCardData);
-          cardModalNew.close();
-        })
-        .catch((err) => console.error(err));
+      function makeRequest() {
+        return api.addNewCard(newCardData).then((newCardData) => {
+          constants.cardGallery.prepend(createCard(newCardData));
+          cardModalNew.resetForm();
+        });
+      }
+      handleSubmit(makeRequest, cardModalNew);
     },
   },
   constants.config
@@ -136,13 +115,13 @@ const avatarModalNew = new PopupWithForm(
   {
     popup: constants.avatarModal,
     handleFormSubmit: (avatarData) => {
-      api
-        .updateProfileImage(avatarData)
-        .then((res) => {
+      function makeRequest() {
+        return api.updateProfileImage(avatarData).then((res) => {
           userInfo.setUserProfileImage(res);
-          avatarModalNew.close();
-        })
-        .catch((err) => console.error(err));
+          avatarModalNew.resetForm();
+        });
+      }
+      handleSubmit(makeRequest, avatarModalNew);
     },
   },
   constants.config
@@ -191,3 +170,21 @@ const enableValidation = (config) => {
   });
 };
 enableValidation(constants.config);
+// Server requests
+Promise.all([api.getUserInformation(), api.getInitialCards()])
+  .then(([userData, initialCards]) => {
+    userInfo.setUserInfo(userData);
+    userInfo.setUserProfileImage(userData);
+    const apiCardSection = new Section(
+      {
+        items: initialCards,
+        renderer: (initialCard) => {
+          const card = createCard(initialCard);
+          apiCardSection.setItem(card);
+        },
+      },
+      constants.cardGallery
+    );
+    apiCardSection.renderItems();
+  })
+  .catch(console.error);

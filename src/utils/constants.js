@@ -18,7 +18,7 @@ const previewImageText = previewImageModal.querySelector(".image-description");
 const profileEditBtn = document.querySelector(".profile__edit-button");
 const newCardBtn = document.querySelector(".profile__plus-button");
 const avatarEditBtn = document.querySelector(".edit__avatar-button");
-
+// Modal selectors
 const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",

@@ -3,17 +3,25 @@ import Popup from "./Popup";
 class PopupWithConfirmation extends Popup {
   constructor({ popup }, config) {
     super({ popup });
-    this._popupForm = this._popup;
-    this._submitButton = config.submitButtonSelector;
+    this._submitBtn = this._popup.querySelector(config.submitButtonSelector);
+    this._submitBtnText = this._submitBtn.textContent;
   }
 
   submitForm(callBack) {
     this._handleFormSubmit = callBack;
   }
 
+  renderLoading(isLoading, loadingText = "Saving...") {
+    if (isLoading) {
+      this._submitBtn.textContent = loadingText;
+    } else {
+      this._submitBtn.textContent = this._submitBtnText;
+    }
+  }
+
   setEventListeners() {
     super.setEventListeners();
-    this._popupForm.addEventListener("submit", (evt) => {
+    this._popup.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._handleFormSubmit();
     });

@@ -31,6 +31,10 @@
   height: 272px;
 }
 
+.modal__container_delete {
+  height: 201px;
+}
+
 @media screen and (max-width: 620px) {
   .modal {
     padding: 19px;
@@ -43,5 +47,9 @@
 
   .modal__container_avatar {
     height: 264px;
+  }
+
+  .modal__container_delete {
+    height: 171px;
   }
 }

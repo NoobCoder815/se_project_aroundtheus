@@ -129,6 +129,6 @@
     background-size: contain;
     padding: 0;
     bottom: calc(100% + 20px);
-    left: calc(100% - 40px);
+    left: calc(100% - 20px);
   }
 }

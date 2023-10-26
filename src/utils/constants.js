@@ -28,7 +28,7 @@ const config = {
   errorClass: "modal__input-error_active",
 };
 // Universal function for submit handling
-function handleSubmit(request, popupInstance, loadingText = "Saving...") {
+const handleSubmit = (request, popupInstance, loadingText = "Saving...") => {
   popupInstance.renderLoading(true, loadingText);
   request()
     .then(() => {
@@ -38,7 +38,7 @@ function handleSubmit(request, popupInstance, loadingText = "Saving...") {
     .finally(() => {
       popupInstance.renderLoading(false);
     });
-}
+};
 
 export {
   profileName,

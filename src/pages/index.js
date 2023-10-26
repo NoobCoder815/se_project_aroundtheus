@@ -22,7 +22,6 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-
 // Create Card
 const createCard = (cardData) => {
   const cardElement = new Card(
@@ -127,7 +126,7 @@ const avatarEditForm = new PopupWithForm(
           avatarEditForm.resetForm();
         });
       }
-      handleSubmit(makeRequest, avatarEditForm);
+      constants.handleSubmit(makeRequest, avatarEditForm);
     },
   },
   constants.config
@@ -184,4 +183,5 @@ Promise.all([api.getUserInformation(), api.getInitialCards()])
     initialCards.forEach((card) => addCard(card));
   })
   .catch(console.error);
+// Render cards
 cardSection.renderItems();

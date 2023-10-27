@@ -27,18 +27,18 @@ class Card {
     this._renderLike();
   }
 
-  _renderLike = () => {
+  _renderLike() {
     if (this.isLiked) {
       this._likeBtn.classList.add("card__like-button_active");
     } else {
       this._likeBtn.classList.remove("card__like-button_active");
     }
-  };
+  }
 
-  removeCard = () => {
+  removeCard() {
     this._cardElement.remove();
     this._cardElement = null;
-  };
+  }
 
   _setEventListeners() {
     this._cardImage.addEventListener("click", this._handleCardClick);

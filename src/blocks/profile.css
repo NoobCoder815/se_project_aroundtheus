@@ -5,11 +5,40 @@
   padding-bottom: calc(51px - 15px);
 }
 
+.profile__image-container {
+  position: relative;
+}
+
 .profile__image {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   margin-right: 30px;
+  opacity: 1;
+  transition: linear 0.2s;
+}
+
+.edit-avatar-button {
+  background: url(../images/edit-symbol.svg) center no-repeat;
+  background-size: 26px 26px;
+  width: 26px;
+  height: 26px;
+  border: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transition: linear 0.5s;
+  opacity: 0;
+  transform: translate(-100%, -50%);
+}
+
+.profile__image-container:hover .profile__image {
+  opacity: 0.2;
+}
+
+.profile__image-container:hover .edit-avatar-button {
+  cursor: pointer;
+  opacity: 1;
 }
 
 .profile__info {
@@ -22,7 +51,7 @@
   grid-template-columns: minmax(auto, 373px) auto;
 }
 
-.profile__edit-button {
+.edit-profile-button {
   background: transparent url(../images/edit-symbol.svg) center no-repeat;
   width: 24px;
   height: 24px;
@@ -31,12 +60,12 @@
   margin-left: 18px;
 }
 
-.profile__edit-button:hover {
+.edit-profile-button:hover {
   cursor: pointer;
   opacity: 0.6;
 }
 
-.profile__plus-button {
+.add-new-card-button {
   background: transparent url(../images/plus-symbol.svg) center no-repeat;
   width: 150px;
   height: 50px;
@@ -47,7 +76,7 @@
   padding: 0;
 }
 
-.profile__plus-button:hover {
+.add-new-card-button:hover {
   cursor: pointer;
   opacity: 0.6;
 }
@@ -79,7 +108,7 @@
   padding-top: 7px;
 }
 @media screen and (max-width: 920px) {
-  .profile__plus-button {
+  .add-new-card-button {
     width: 50px;
   }
 }
@@ -89,10 +118,12 @@
     padding-top: 42px;
     padding-bottom: calc(36px - 15px);
   }
-
   .profile__image {
     margin-right: 0;
     margin-bottom: 30px;
+  }
+  .edit-avatar-button {
+    transform: translate(-50%, -100%);
   }
   .profile__info {
     display: flex;
@@ -102,16 +133,14 @@
     max-width: 282px;
     margin-bottom: 36px;
   }
-  .profile__edit-button {
+  .edit-profile-button {
     width: 18px;
     height: 18px;
   }
-
-  .profile__plus-button {
+  .add-new-card-button {
     margin: 0;
     width: 100%;
   }
-
   .profile__title {
     font-size: 22px;
     margin-right: 10px;

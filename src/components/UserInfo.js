@@ -1,21 +1,27 @@
 class UserInfo {
-  constructor({ userName, userJob }) {
+  constructor(userName, userDescription, userProfileImage) {
     this._userName = userName;
-    this._userJob = userJob;
+    this._userDescription = userDescription;
+    this._userProfileImage = userProfileImage;
   }
 
   getUserInfo() {
     const userData = {};
 
     userData.name = this._userName.textContent;
-    userData.job = this._userJob.textContent;
+    userData.about = this._userDescription.textContent;
 
     return userData;
   }
 
   setUserInfo(info) {
     this._userName.textContent = info.name;
-    this._userJob.textContent = info.job;
+    this._userDescription.textContent = info.about;
+  }
+
+  setUserProfileImage(data) {
+    this._userProfileImage.src = data.avatar;
+    this._userProfileImage.alt = this._userName.textContent;
   }
 }
 

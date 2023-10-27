@@ -8,7 +8,7 @@
   height: 75vh;
 }
 
-.image-description {
+.image-name {
   font-family: Inter;
   font-size: 12px;
   font-weight: 400;
@@ -17,21 +17,13 @@
 }
 
 .modal__close-button_image {
-  background: transparent url(../images/close-symbol.svg) no-repeat center;
-  width: 40px;
-  height: 40px;
-  border: none;
-  position: absolute;
   bottom: calc(100% + 4px);
-  left: 100%;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 620px) {
   .preview-image {
     height: 52vh;
   }
-
   .modal__close-button_image {
     width: 30px;
     height: 30px;

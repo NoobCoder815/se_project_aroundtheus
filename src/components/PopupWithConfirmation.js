@@ -1,7 +1,7 @@
 import Popup from "./Popup";
 
 class PopupWithConfirmation extends Popup {
-  constructor({ popup }, config) {
+  constructor(popup, config) {
     super({ popup });
     this._submitBtn = this._popup.querySelector(config.submitButtonSelector);
     this._submitBtnText = this._submitBtn.textContent;

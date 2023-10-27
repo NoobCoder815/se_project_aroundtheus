@@ -1,5 +1,5 @@
 // Universal function for submit handling
-const handleSubmit = (request, popupInstance, loadingText = "Saving...") => {
+function handleSubmit(request, popupInstance, loadingText = "Saving...") {
   popupInstance.renderLoading(true, loadingText);
   request()
     .then(() => {
@@ -9,6 +9,6 @@ const handleSubmit = (request, popupInstance, loadingText = "Saving...") => {
     .finally(() => {
       popupInstance.renderLoading(false);
     });
-};
+}
 
 export { handleSubmit };

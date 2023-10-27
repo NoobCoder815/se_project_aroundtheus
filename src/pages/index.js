@@ -68,13 +68,7 @@ const addCard = (cardData) => {
   cardSection.setItem(card);
 };
 // Card section
-const cardSection = new Section(
-  {
-    items: [],
-    renderer: () => {},
-  },
-  constants.cardGallery
-);
+const cardSection = new Section(addCard, constants.cardGallery);
 // Popup Instantiations
 const popupImage = new PopupWithImage(
   {
@@ -129,9 +123,7 @@ const avatarEditForm = new PopupWithForm(
   constants.config
 );
 const deleteConfirmation = new PopupWithConfirmation(
-  {
-    popup: constants.deleteCardModal,
-  },
+  constants.deleteModal,
   constants.config
 );
 // Handler Functions
@@ -177,8 +169,6 @@ Promise.all([api.getUserInformation(), api.getInitialCards()])
   .then(([userData, initialCards]) => {
     userInfo.setUserInfo(userData);
     userInfo.setUserProfileImage(userData);
-    initialCards.forEach((card) => addCard(card));
-    // Render cards
-    cardSection.renderItems();
+    cardSection.renderItems(initialCards);
   })
   .catch(console.error);

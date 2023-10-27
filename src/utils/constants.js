@@ -9,7 +9,7 @@ const cardTemplate = document.querySelector("#card-template").content;
 const editModal = document.getElementById("edit-modal");
 const newCardModal = document.getElementById("new-card-modal");
 const avatarModal = document.getElementById("avatar-edit-modal");
-const deleteCardModal = document.getElementById("delete-confirmation-modal");
+const deleteModal = document.getElementById("delete-confirmation-modal");
 const previewImageModal = document.getElementById("preview-image-modal");
 // Preview image + text
 const previewImage = previewImageModal.querySelector(".preview-image");
@@ -37,7 +37,7 @@ export {
   editModal,
   newCardModal,
   avatarModal,
-  deleteCardModal,
+  deleteModal,
   previewImageModal,
   previewImageText,
   previewImage,

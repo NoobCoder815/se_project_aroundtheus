@@ -1,7 +1,7 @@
 // Profile data
 const profileName = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
-const profileAvatar = document.querySelector(".profile__image");
+const profileImage = document.querySelector(".profile__image");
 // Card gallery + card template
 const cardGallery = document.querySelector(".gallery__cards");
 const cardTemplate = document.querySelector("#card-template").content;
@@ -13,11 +13,11 @@ const deleteModal = document.getElementById("delete-confirmation-modal");
 const previewImageModal = document.getElementById("preview-image-modal");
 // Preview image + text
 const previewImage = previewImageModal.querySelector(".preview-image");
-const previewImageText = previewImageModal.querySelector(".image-description");
+const previewImageText = previewImageModal.querySelector(".image-name");
 // Buttons
-const profileEditBtn = document.querySelector(".profile__edit-button");
-const newCardBtn = document.querySelector(".profile__plus-button");
-const avatarEditBtn = document.querySelector(".edit__avatar-button");
+const profileEditBtn = document.querySelector(".edit-profile-button");
+const newCardBtn = document.querySelector(".add-new-card-button");
+const avatarEditBtn = document.querySelector(".edit-avatar-button");
 // Modal selectors
 const config = {
   formSelector: ".modal__form",
@@ -31,7 +31,7 @@ const config = {
 export {
   profileName,
   profileDescription,
-  profileAvatar,
+  profileImage,
   cardGallery,
   cardTemplate,
   editModal,

@@ -29,7 +29,7 @@ class FormValidator {
     errorElement.classList.remove(this._errorClass);
   }
 
-  checkInputValidity(inputElement) {
+  _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
@@ -73,7 +73,7 @@ class FormValidator {
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._toggleButtonState();
-        this.checkInputValidity(inputElement);
+        this._checkInputValidity(inputElement);
       });
     });
   }

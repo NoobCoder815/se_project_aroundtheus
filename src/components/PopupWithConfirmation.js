@@ -7,8 +7,8 @@ class PopupWithConfirmation extends Popup {
     this._submitBtnText = this._submitBtn.textContent;
   }
 
-  submit(callBack) {
-    this._handleSubmit = callBack;
+  submit(callback) {
+    this._handleSubmit = callback;
   }
 
   renderLoading(isLoading, loadingText = "Saving...") {

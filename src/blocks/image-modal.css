@@ -8,7 +8,7 @@
   height: 75vh;
 }
 
-.image-description {
+.image-name {
   font-family: Inter;
   font-size: 12px;
   font-weight: 400;
@@ -24,7 +24,6 @@
   .preview-image {
     height: 52vh;
   }
-
   .modal__close-button_image {
     width: 30px;
     height: 30px;

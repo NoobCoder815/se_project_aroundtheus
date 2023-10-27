@@ -1,9 +1,8 @@
 import Popup from "./Popup";
 
 class PopupWithImage extends Popup {
-  constructor({ popupImage, popupImageText }, popup) {
+  constructor(popupImage, popupImageText, popup) {
     super({ popup });
-    this._popup = popup;
     this._popupImage = popupImage;
     this._popupImageText = popupImageText;
   }

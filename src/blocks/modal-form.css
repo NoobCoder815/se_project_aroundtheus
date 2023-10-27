@@ -107,22 +107,18 @@
     margin-top: 25px;
     padding-left: 22px;
   }
-
   .modal__input {
     font-size: 14px;
     width: 238px;
   }
-
   .modal__input-error_active {
     margin-left: 20px;
   }
-
   .modal__confirm-button {
     width: 238px;
     height: 46px;
     font-size: 14px;
   }
-
   .modal__close-button {
     width: 26px;
     height: 26px;

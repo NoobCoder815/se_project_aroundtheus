@@ -1,5 +1,5 @@
 // Universal function for submit handling
-function handleSubmit(request, popupInstance, loadingText = "Saving...") {
+function handleSubmit(request, popupInstance, loadingText) {
   popupInstance.renderLoading(true, loadingText);
   request()
     .then(() => {

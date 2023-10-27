@@ -1,5 +1,5 @@
 class UserInfo {
-  constructor({ userName, userDescription, userProfileImage }) {
+  constructor(userName, userDescription, userProfileImage) {
     this._userName = userName;
     this._userDescription = userDescription;
     this._userProfileImage = userProfileImage;
